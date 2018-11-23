@@ -1,0 +1,11 @@
+
+        var x:integer;
+        procedure main();
+        begin
+            x := 1;
+            putInt(x);
+            x:=10;
+            putInt(x*2);
+        end
+
+        

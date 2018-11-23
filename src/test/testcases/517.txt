@@ -1,0 +1,6 @@
+
+        //var x:integer;
+        procedure main();
+        begin 
+            putInt(1 mod 2); 
+        end

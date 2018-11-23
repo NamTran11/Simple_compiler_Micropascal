@@ -1,0 +1,11 @@
+
+        var x:integer;
+        var y:real;
+        procedure f();
+        begin
+            putInt(10);
+        end
+        procedure main(); 
+        begin 
+            putInt(100);
+        end

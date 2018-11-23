@@ -1,0 +1,6 @@
+
+        //var x:integer;
+        procedure main();
+        begin 
+            putBool(1>2); 
+        end
