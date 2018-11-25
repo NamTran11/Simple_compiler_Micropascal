@@ -1,0 +1,13 @@
+
+        function tong_n(n:integer):integer;
+        begin
+            if(n=0) then  return n;
+            return n+tong_n(n-1);
+        end
+        procedure main();
+        var n:integer;
+        begin
+            n:=10;
+            putInt(tong_n(n));
+        end
+        

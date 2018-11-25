@@ -1,0 +1,10 @@
+
+        function square(x:integer):integer;
+        begin
+            return x*x;
+        end
+        procedure main ();
+        begin
+            putInt(square(3));
+        end
+        

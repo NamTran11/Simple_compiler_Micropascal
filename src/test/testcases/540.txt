@@ -1,0 +1,18 @@
+
+        function tong(a,b:integer):integer;
+        begin
+            return a+b;
+        end
+        function square(x:integer):integer;
+        begin
+            return x*x;
+        end
+        function sub(x,y:integer):integer;
+        begin
+            return x-y;
+        end
+        procedure main ();
+        begin
+            putInt(square(sub(1,2)*tong(1,2)));
+        end
+        

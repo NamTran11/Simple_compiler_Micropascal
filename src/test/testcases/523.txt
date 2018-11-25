@@ -1,0 +1,10 @@
+
+        procedure main();
+        var x:real;
+        begin
+            x := 1;
+            x := x + 10;
+            putFloat(x*2);
+        end
+
+        

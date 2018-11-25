@@ -158,6 +158,10 @@ class Emitter():
         frame.push()
         if type(inType) is IntType:
             return self.jvm.emitILOAD(index)
+        if type(inType) is FloatType:
+            return self.jvm.emitFLOAD(index)
+        if type(inType) is BoolType:
+            return self.jvm.emitILOAD(index)
         elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType:
             return self.jvm.emitALOAD(index)
         else:
@@ -189,6 +193,10 @@ class Emitter():
         frame.pop()
 
         if type(inType) is IntType:
+            return self.jvm.emitISTORE(index)
+        if type(inType) is FloatType:
+            return self.jvm.emitFSTORE(index)
+        if type(inType) is BoolType:
             return self.jvm.emitISTORE(index)
         elif type(inType) is cgen.ArrayPointerType or type(inType) is cgen.ClassType or type(inType) is StringType:
             return self.jvm.emitASTORE(index)
@@ -415,7 +423,7 @@ class Emitter():
         #in_: Type
         #frame: Frame
         #..., value1, value2 -> ..., result
-
+        
         result = list()
         labelF = frame.getNewLabel()
         labelO = frame.getNewLabel()
@@ -423,23 +431,52 @@ class Emitter():
         frame.pop()
         frame.pop()
         if op == ">":
-            result.append(self.jvm.emitIFICMPLE(labelF))
+            if type(in_) is FloatType:
+                result.append(self.jvm.emitFCMPL())
+                result.append(self.jvm.emitIFLE(labelF))
+            else:
+                result.append(self.jvm.emitIFICMPLE(labelF))
         elif op == ">=":
-            result.append(self.jvm.emitIFICMPLT(labelF))
+            if type(in_) is FloatType:
+                result.append(self.jvm.emitFCMPL())
+                result.append(self.jvm.emitIFLT(labelF))
+            else:
+                result.append(self.jvm.emitIFICMPLT(labelF))
         elif op == "<":
-            result.append(self.jvm.emitIFICMPGE(labelF))
+            if type(in_) is FloatType:
+                result.append(self.jvm.emitFCMPL())
+                result.append(self.jvm.emitIFGE(labelF))
+            else:
+                result.append(self.jvm.emitIFICMPGE(labelF))
         elif op == "<=":
-            result.append(self.jvm.emitIFICMPGT(labelF))
-        elif op == "!=":
-            result.append(self.jvm.emitIFICMPEQ(labelF))
-        elif op == "==":
-            result.append(self.jvm.emitIFICMPNE(labelF))
-        result.append(self.emitPUSHCONST("1", IntType(), frame))
+            if type(in_) is FloatType:
+                result.append(self.jvm.emitFCMPL())
+                result.append(self.jvm.emitIFGT(labelF))
+            else:
+                result.append(self.jvm.emitIFICMPGT(labelF))
+        elif op == "<>":
+            if type(in_) is FloatType:
+                result.append(self.jvm.emitFCMPL())
+                result.append(self.jvm.emitIFEQ(labelF))
+            elif type(in_) in[cgen.ClassType,StringType]:
+                result.append(self.jvm.emitIFACMPEQ(labelF))
+            else:
+                result.append(self.jvm.emitIFICMPEQ(labelF))
+        elif op == "=":
+            if type(in_) is FloatType:
+                result.append(self.jvm.emitFCMPL())
+                result.append(self.jvm.emitIFNE(labelF))
+            elif type(in_) in[cgen.ClassType,StringType]:
+                result.append(self.jvm.emitIFACMPNE(labelF))
+            else:
+                result.append(self.jvm.emitIFICMPNE(labelF))
+
+        result.append(self.emitPUSHCONST(1, IntType(), frame))
         frame.pop()
-        result.append(self.emitGOTO(labelO, frame))
-        result.append(self.emitLABEL(labelF, frame))
-        result.append(self.emitPUSHCONST("0", IntType(), frame))
-        result.append(self.emitLABEL(labelO, frame))
+        result.append(self.emitGOTO(str(labelO), frame))
+        result.append(self.emitLABEL(str(labelF), frame))
+        result.append(self.emitPUSHCONST(0, IntType(), frame))
+        result.append(self.emitLABEL(str(labelO), frame))
         return ''.join(result)
 
     def emitRELOP(self, op, in_, trueLabel, falseLabel, frame):
@@ -470,6 +507,45 @@ class Emitter():
         result.append(self.jvm.emitGOTO(trueLabel))
         return ''.join(result)
 
+    def emit_ANDTHEN_ORELSE(self,op,left,right,frame):
+        #op:    String
+        #left:  String
+        #right: string
+        #frame: Frame
+        
+        result = []
+        label_exit_compare = frame.getNewLabel()
+        label_go_on = frame.getNewLabel()
+
+        if op == "andthen":
+            result.append(left)
+            result.append(self.jvm.emitIFLE(label_exit_compare))
+            frame.pop()
+            result.append(right)
+            result.append(self.jvm.emitIFLE(label_exit_compare))
+            frame.pop()
+            result.append(self.emitPUSHCONST(1, IntType(), frame))
+            frame.pop()
+            result.append(self.emitGOTO(label_go_on,frame))
+            result.append(self.emitLABEL(label_exit_compare,frame))
+            result.append(self.emitPUSHCONST(0, IntType(), frame))
+            result.append(self.emitLABEL(label_go_on,frame))        
+
+        elif op == "orelse":
+            result.append(left)
+            result.append(self.jvm.emitIFGT(label_exit_compare))
+            frame.pop()
+            result.append(right)
+            result.append(self.jvm.emitIFGT(label_exit_compare))
+            frame.pop()
+            result.append(self.emitPUSHCONST(0, IntType(), frame))
+            frame.pop()
+            result.append(self.emitGOTO(label_go_on,frame))
+            result.append(self.emitLABEL(label_exit_compare,frame))
+            result.append(self.emitPUSHCONST(1, IntType(), frame))
+            result.append(self.emitLABEL(label_go_on,frame))
+
+        return ''.join(result)
     '''   generate the method directive for a function.
     *   @param lexeme the qualified name of the method(i.e., class-name/method-name).
     *   @param in the type descriptor of the method.
@@ -586,8 +662,22 @@ class Emitter():
         if type(in_) is IntType:
             frame.pop()
             return self.jvm.emitIRETURN()
+        elif type(in_) is FloatType:
+            frame.pop()
+            return self.jvm.emitFRETURN()
+        elif type(in_) is BoolType:
+            frame.pop()
+            return self.jvm.emitIRETURN()
+        elif type(in_) is StringType :
+            frame.pop()
+            return self.jvm.emitARETURN()
         elif type(in_) is VoidType:
             return self.jvm.emitRETURN()
+        elif type(in_) is cgen.ClassType:
+            frame.pop()
+            return self.jvm.emitARETURN()
+        else:
+            pass
 
     ''' generate code that represents a label	
     *   @param label the label

@@ -1,0 +1,13 @@
+
+        function demsochuso(n:integer):integer;
+        begin
+            if(n<10) then  return 1;
+            return 1+demsochuso(n div 10);
+        end
+        procedure main();
+        var n:integer;
+        begin
+            n:=1000;
+            putInt(demsochuso(n));
+        end
+        

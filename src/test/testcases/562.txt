@@ -1,0 +1,26 @@
+
+        function max(a,b,c:integer):integer;
+        var max:integer;
+        begin
+            if(a>b) then
+                if(a>c) then max:=a;
+                else max := c;
+            else
+                if(b>c) then max:=b;
+                else max := c;
+            return max;
+        end
+        procedure main();
+        begin
+            with
+                a,b,c:integer;
+                d:boolean;
+            do begin
+                a:=500;
+                b:=c:=100;
+                d:=c=b;
+                putInt(max(a,b,c));
+                if(d and (max(a,c,b)=a)) then putBool(d);
+            end
+        end
+        

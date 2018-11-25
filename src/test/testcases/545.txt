@@ -1,0 +1,11 @@
+
+        function fact(x,n:integer):integer;
+        begin
+            if(n=0) then return 1;
+            else return x*fact(x,n-1);
+        end
+        procedure main ();
+        begin
+            putInt(fact(3,3));
+        end
+        

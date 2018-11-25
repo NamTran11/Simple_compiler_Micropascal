@@ -1,0 +1,13 @@
+
+        procedure main();
+        var n,S,i:integer;
+        begin 
+            n:=10;
+            S:=0;
+            for i:=0 to n do
+            begin
+                S:=S+i;
+            end
+            putInt(S);
+        end
+        

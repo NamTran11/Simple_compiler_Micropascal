@@ -1,0 +1,8 @@
+
+        procedure main();
+        var x:real;
+        begin
+            x := 1;
+            putBool(x < 2);
+        end
+        

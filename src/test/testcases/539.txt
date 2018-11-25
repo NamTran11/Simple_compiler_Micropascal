@@ -1,0 +1,10 @@
+
+        function sub(x,y:integer):integer;
+        begin
+            return x-y;
+        end
+        procedure main ();
+        begin
+            putInt(sub(1,2));
+        end
+        

@@ -1,0 +1,15 @@
+
+        
+        procedure main();
+        begin
+            with
+                x:integer;
+                y:real;
+            do begin
+                x:=1;
+                y:=x*x+5;
+                putFloat(y);
+            end
+        end
+        var x:integer;
+        

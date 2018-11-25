@@ -1,0 +1,20 @@
+
+        function UCLN(a,b:integer):integer;
+        begin
+            if(a>b) then return UCLN(a-b,b);
+            else
+                if(a<b) then return UCLN(a,b-a);
+                else return a;
+        end
+        procedure main();
+        begin
+            with
+                a,b,c:integer;
+                d:boolean;
+            do begin
+                a:=8;
+                b:=4;
+                putInt(UCLN(a,b));
+            end
+        end
+        

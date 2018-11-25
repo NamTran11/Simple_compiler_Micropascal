@@ -1,0 +1,11 @@
+
+        function sumofdigit(n:integer):integer;
+        begin
+            if(n<10) then return n;
+            else return (n mod 10) + sumofdigit(n div 10);
+        end
+        procedure main ();
+        begin
+            putInt(sumofdigit(1234));
+        end
+        

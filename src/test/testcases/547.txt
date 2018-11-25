@@ -1,0 +1,11 @@
+
+        function temp(n:integer):boolean;
+        begin
+            if(n=5) then return true;
+            else return false;
+        end
+        procedure main ();
+        begin
+            putBool(temp(5));
+        end
+        

@@ -1,0 +1,3 @@
+call b2
+call b1
+true

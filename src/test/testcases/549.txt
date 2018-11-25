@@ -1,0 +1,6 @@
+
+        procedure main ();
+        begin
+            putBool((1>2)and(2>1));
+        end
+        

@@ -1,0 +1,15 @@
+
+        function cmp(a,b:integer):boolean;
+        begin
+            if (a-5)>b then return true;
+            else return false;
+        end
+        procedure main ();
+        var a,b:integer;
+        begin
+            a:=8;
+            b:=2;
+            if(cmp(a,b)) then putInt(a);
+            else putInt(b);
+        end
+        

@@ -1,0 +1,15 @@
+
+        procedure main();
+        var n,S,i:integer;
+        begin 
+            n := 10;
+            S := 0;
+            i := 0;
+            while(i<n) do
+            begin
+                S:=S+i;
+                i:=i+1;
+            end
+            putInt(S);
+        end
+        

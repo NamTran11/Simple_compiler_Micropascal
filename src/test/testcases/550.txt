@@ -1,0 +1,6 @@
+
+        procedure main ();
+        begin
+            putBool(((1>2)or(2>1))and(100<1000));
+        end
+        

@@ -1,0 +1,12 @@
+
+        procedure main();
+        var x:integer;
+        begin
+            for x:=0 to 5 do
+            begin
+                if(x<=2) then
+                    putInt(x);
+                else break;
+            end
+        end
+        

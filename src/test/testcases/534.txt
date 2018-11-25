@@ -1,0 +1,21 @@
+
+        function f():integer;
+        begin
+            return 2; 
+        end
+        procedure main ();
+        var x,y:real;
+        begin
+            with x,y:integer;
+            do begin
+                y := 5;
+                for x:= y to 100 do
+                begin
+                    if(x>100)then
+                        break;
+                    else x:=x+50;
+                end
+                putInt(x);
+            end
+        end
+        

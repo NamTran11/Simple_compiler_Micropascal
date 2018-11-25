@@ -1,0 +1,22 @@
+
+        function max(a,b,c:integer):integer;
+        var max:integer;
+        begin
+            if(a>b) then
+                if(a>c) then max:=a;
+                else max := c;
+            else
+                if(b>c) then max:=b;
+                else max := c;
+            return max;
+        end
+        procedure main();
+        begin
+            with
+                a,b,c:integer;
+            do begin
+                a:=b:=c:=100;
+                putInt(max(a,c,b));
+            end
+        end
+        

@@ -1,0 +1,9 @@
+
+        var x:integer;
+        procedure main();
+        begin
+            for x:=5 downto 0 do
+                putInt(x);
+        end
+
+        

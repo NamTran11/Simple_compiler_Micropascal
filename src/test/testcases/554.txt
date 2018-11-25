@@ -1,0 +1,21 @@
+
+        function b1():boolean;
+        begin
+            putStringLn("call b1");
+            return false;
+        end
+        function b2():boolean;
+        begin
+            putStringLn("call b2");
+            return true;
+        end
+        function b3():boolean;
+        begin
+            putStringLn("call b3");
+            return true;
+        end
+        procedure main ();
+        begin
+            putBool(b2() and then b1() and then b3());
+        end
+        

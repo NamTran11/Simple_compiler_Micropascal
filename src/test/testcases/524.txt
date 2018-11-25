@@ -1,0 +1,10 @@
+
+        procedure main();
+        var x:real;
+        begin
+            if(true) then
+            begin
+                putInt(100);
+            end
+        end
+        

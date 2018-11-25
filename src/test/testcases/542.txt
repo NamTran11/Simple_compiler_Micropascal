@@ -1,0 +1,15 @@
+
+        procedure main ();
+        var a,b,res:integer;
+        begin
+            a:=1;
+            b:=1;
+            res:=foo(a,b);
+            putInt(res);
+        end
+        function foo(a,b:integer):integer;
+        begin
+            if(a=b) then return 111;
+            else return 222;
+        end
+        

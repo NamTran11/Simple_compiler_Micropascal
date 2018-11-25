@@ -1,1 +1,1 @@
-procedure main(); begin putBool(True); end
+procedure main(); begin putFloat(4+2/2); end

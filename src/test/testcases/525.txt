@@ -1,0 +1,12 @@
+
+        procedure main();
+        var x:real;
+        begin
+            if(1>2) then
+            begin
+                putInt(100);
+            end
+            else putInt(101);
+        end
+
+        

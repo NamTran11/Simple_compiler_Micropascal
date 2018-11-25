@@ -17,16 +17,13 @@ class ASTGenSuite(unittest.TestCase):
         expect = str(Program([FuncDecl(Id("foo"),[],[],[CallStmt(Id("putIntLn"),[IntLiteral(4)])],IntType())]))
         self.assertTrue(TestAST.test(input,expect,301))
     
-    def test_call_without_parameter(self):
-        """More complex program"""
-        input = """procedure main (); begin
-            getIntLn();
+    def test_55(self):
+        input = """
+        procedure main ();
+        begin
+            putBool((1<2)AND THEN (1>1));
         end
-        function foo ():INTEGER; begin
-            putIntLn(4);
-        end"""
-        expect = str(Program([
-                FuncDecl(Id("main"),[],[],[CallStmt(Id("getIntLn"),[])]),
-                FuncDecl(Id("foo"),[],[],[CallStmt(Id("putIntLn"),[IntLiteral(4)])],IntType())]))
-        self.assertTrue(TestAST.test(input,expect,302))
+        """ 
+        expect = "true"
+        self.assertTrue(TestAST.test(input,expect,310))
    

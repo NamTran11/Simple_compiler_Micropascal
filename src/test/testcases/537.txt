@@ -1,0 +1,12 @@
+
+        function tong(a,b:integer):integer;
+        begin
+            return a+b;
+        end
+        procedure main ();
+        var x,y:real;
+            n:integer;
+        begin
+            putIntLn(tong(1,2));
+        end
+        

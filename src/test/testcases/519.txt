@@ -2,5 +2,5 @@
         //var x:integer;
         procedure main();
         begin 
-            putBool(1>2); 
+            putInt(1 mod 2); 
         end
